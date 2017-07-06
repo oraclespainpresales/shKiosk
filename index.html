@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Oracle Smart Hospitality</title>
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href="/js/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="/js/jquery-ui.css">
+      <script src="/js/jquery-1.12.4.js"></script>
+      <script src="/js/jquery-ui.js"></script>
+      <script>
+      function showDialog() {
+        $( "#dialog-message" ).dialog({
+          modal: true,
+          buttons: {
+            Cancel: function() {
+              $( this ).dialog( "close" );
+            }
+          }
+        });
+      };
+      </script>
+      <style type="text/css">
+        #dialog-message {
+            display: none;
+        }
+        #photoButton {
+         top: 20%;
+         display: none;
+         }
+         .ui-dialog .ui-dialog-titlebar-close {
+           display: none;
+         }
+         .ui-dialog .ui-dialog-buttonpane {
+             text-align: center;
+             font-size: 2em;
+             padding: .3em 0em .3em .4em;
+         }
+         .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+             float: none;
+         }
+      </style>
+      <!-- Bootstrap JavaScript -->
+      <script src="/js/bootstrap.min.js"></script>
+      <script src="/socket.io/socket.io.js"></script>
+      <script>
+         var socket = io();
+         socket.on('liveStream', function(url) {
+           $('#stream').attr('src', url);
+           $('#cameraButton').hide();
+         });
+
+         function startStream() {
+           socket.emit('start-stream');
+           $('#cameraButton').hide();
+           //$('#photoButton').hide();
+         }
+
+         function startPhoto() {
+           socket.emit('takephoto');
+         }
+
+         socket.on('buttonPhoto', function(url) {
+           $('#photoButton').show();
+         });
+         socket.on('hidebuttonPhoto', function(url) {
+           $('#photoButton').hide();
+         });
+         socket.on('match', function(url) {
+           //Cambiar Html para que se note que SI hay match
+           alert("MATCH");
+         });
+         socket.on('NOmatch', function(url) {
+           //Cambiar Html para que se note que NO hay match
+           alert("NO MATCH");
+         });
+      </script>
+   </head>
+   <body class="col-lg-12 container">
+      <div class="row">
+         <table align="center">
+            <tr>
+               <td>
+                  <img src="/wedo_logo.png" height="35"></img>
+               </td>
+               <td>&nbsp;&nbsp;&nbsp;</td>
+               <td valign="middle">
+                  <h1 class="text-center">Hospitality</h1>
+                  <p style="margin: 0 0 0px">&nbsp;
+               </td>
+            </tr>
+         </table>
+         <center><small>Powered by Oracle</small></center>
+      </div>
+      <hr>
+      <div class="vid">
+         <center><button type="button" id="cameraButton" class="btn btn-info start" onclick="showDialog()">Start Camera</button></center>
+      </div>
+      <div class="row">
+         <img src="" id="stream">
+      </div>
+      <br>
+      <div class="box">
+         <center>
+            <button type="button" id="photoButton" class="btn btn-info start" onclick="startPhoto()">
+               <h1>&nbsp;&nbsp;&nbsp;Take Photo&nbsp;&nbsp;&nbsp;</h1>
+            </button>
+         </center>
+      </div>
+      <div id="dialog-message" title="Looking for you in our Databases...">
+        <br>
+          <div  style="text-align: center">
+          <i class="fa fa-refresh fa-spin" style="font-size:100px;color:gray"></i>
+        </div>
+        <p>
+      </div>
+   </body>
+</html>

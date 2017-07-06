@@ -1,0 +1,19 @@
+{
+  "name": "socketChat",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "express": "^4.10.0",
+    "fs-extra": "^3.0.0",
+    "node-fetch": "^1.7.1",
+    "socket.io": "^1.1.0"
+  }
+}
