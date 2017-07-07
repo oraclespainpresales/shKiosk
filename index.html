@@ -11,8 +11,26 @@
       <script src="/js/jquery-1.12.4.js"></script>
       <script src="/js/jquery-ui.js"></script>
       <script>
-      function showDialog() {
-        $( "#dialog-message" ).dialog({
+      function showWaitingDialog() {
+        $( "#waiting-dialog" ).dialog({
+          modal: true,
+          buttons: {
+            Cancel: function() {
+              $( this ).dialog( "close" );
+            }
+          }
+        });
+      };
+      function showDetailsDialog(customer) {
+        // customer tiene los datos del cliente
+        if (customer) {
+            // cuando hay matching
+
+        } else {
+          // cuando NO hay matching
+          
+        }
+        $( "#details-dialog" ).dialog({
           modal: true,
           buttons: {
             Cancel: function() {
@@ -23,7 +41,7 @@
       };
       </script>
       <style type="text/css">
-        #dialog-message {
+        #waiting-dialog {
             display: none;
         }
         #photoButton {
@@ -55,10 +73,10 @@
          function startStream() {
            socket.emit('start-stream');
            $('#cameraButton').hide();
-           //$('#photoButton').hide();
          }
 
          function startPhoto() {
+           showWaitingDialog();
            socket.emit('takephoto');
          }
 
@@ -68,13 +86,22 @@
          socket.on('hidebuttonPhoto', function(url) {
            $('#photoButton').hide();
          });
-         socket.on('match', function(url) {
-           //Cambiar Html para que se note que SI hay match
-           alert("MATCH");
+         socket.on('match', function(customer) {
+           //hideWaitingDialog();
+           /**
+            customer = {
+              "surname": "Nogueira",
+              "name": "Luis",
+              "temperature": 19,
+              "roomid": 201
+            }
+           **/
+
+           showDetailsDialog(customer);
          });
          socket.on('NOmatch', function(url) {
-           //Cambiar Html para que se note que NO hay match
-           alert("NO MATCH");
+           hideWaitingDialog();
+           showDetailsDialog();
          });
       </script>
    </head>
@@ -109,10 +136,17 @@
             </button>
          </center>
       </div>
-      <div id="dialog-message" title="Looking for you in our Systems...">
+      <div id="waiting-dialog" title="Looking for you in our Systems...">
         <br>
           <div  style="text-align: center">
             <image src="/spin.gif"></image>
+          </div>
+        <p>
+      </div>
+      <div id="details-dialog" title="Looking for you in our Systems...">
+        <br>
+          <div  style="text-align: center">
+              Welcome Mr/Ms #{customer.name} customer.surname. Your room customer.roomid is ready and the temperature is customer.temperature. Blah nlahkajhkjhdjskhfjsd
           </div>
         <p>
       </div>

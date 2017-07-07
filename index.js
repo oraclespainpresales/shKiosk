@@ -58,15 +58,15 @@ io.on('connection', function(socket) {
       //send image rest invocation
       var inputParams = {
         image: base64str,
-        demozone: "Barcelona"
+        demozone: "BARCELONA"
       };
       var result = restservices.sh_facerecogprocess(inputParams);
 
       Promise.resolve(result)
         .then(function(result) {
           console.log("RESULTADO PARECIDO RAZONABLE: " + result.result);
-          if (result.result == '"OK"') {
-            io.sockets.emit('match', '');
+          if (result.found) {
+            io.sockets.emit('match', result.customer);
           } else {
             io.sockets.emit('NOmatch', '');
           }
