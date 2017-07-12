@@ -39,14 +39,11 @@
           }
         });
       };
-      /**
+
       function hideWaitingDialog() {
-        $( "#waiting-dialog" ).dialog({
-          modal: true,
-          $(this).dialog("disable");
-        });
+        $('#waiting-dialog').dialog( "close" );
       }
-      **/
+
       </script>
       <style type="text/css">
         #waiting-dialog {
