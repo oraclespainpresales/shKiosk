@@ -64,7 +64,7 @@ io.on('connection', function(socket) {
 
       Promise.resolve(result)
         .then(function(result) {
-          console.log("RESULTADO PARECIDO RAZONABLE: " + result.result);
+          console.log("RESULTADO PARECIDO RAZONABLE: " + result.found);
           if (result.found) {
             io.sockets.emit('match', result.customer);
           } else {
