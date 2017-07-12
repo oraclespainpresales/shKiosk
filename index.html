@@ -46,7 +46,7 @@
         }
         #photoButton {
          top: 20%;
-         display: none;
+         display: block;
          }
          .ui-dialog .ui-dialog-titlebar-close {
            display: none;
@@ -71,7 +71,6 @@
          });
 
          function startStream() {
-           showWaitingDialog();
            socket.emit('start-stream');
            $('#cameraButton').hide();
          }
@@ -144,10 +143,9 @@
           </div>
         <p>
       </div>
-      <div id="details-dialog" title="Looking for you in our Systems...">
+      <div id="details-dialog" title="System response">
         <br>
-          <div  style="text-align: center">
-              Welcome Mr/Ms #{customer.name} customer.surname. Your room customer.roomid is ready and the temperature is customer.temperature. Blah nlahkajhkjhdjskhfjsd
+          <div  id="resultString" style="text-align: center">
           </div>
         <p>
       </div>
