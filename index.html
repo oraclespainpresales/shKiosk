@@ -39,6 +39,13 @@
           }
         });
       };
+      function hideWaitingDialog() {
+        $( "#waiting-dialog" ).dialog({
+          modal: true,
+          $(this).dialog("disable");
+        });
+      }
+
       </script>
       <style type="text/css">
         #waiting-dialog {
@@ -99,7 +106,7 @@
 
            showDetailsDialog(customer);
          });
-         socket.on('NOmatch', function(url) {
+         socket.on('nomatch', function(url) {
            hideWaitingDialog();
            showDetailsDialog();
          });
@@ -126,7 +133,7 @@
          <center><button type="button" id="cameraButton" class="btn btn-info start" onclick="startStream()">Start Camera</button></center>
       </div>
       <div class="row">
-         <img src="image_stream.jpg" id="stream">
+         <img src="" id="stream">
       </div>
       <br>
       <div class="box">

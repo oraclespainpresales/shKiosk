@@ -66,9 +66,11 @@ io.on('connection', function(socket) {
         .then(function(result) {
           console.log("RESULTADO PARECIDO RAZONABLE: " + result.found);
           if (result.found) {
+            console.log("sending match");
             io.sockets.emit('match', result.customer);
           } else {
-            io.sockets.emit('NOmatch', '');
+            console.log("sending nomatch");
+            io.sockets.emit('nomatch', '');
           }
 
         });
