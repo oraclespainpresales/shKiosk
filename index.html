@@ -28,7 +28,7 @@
 
         } else {
           // cuando NO hay matching
-          
+
         }
         $( "#details-dialog" ).dialog({
           modal: true,
@@ -71,6 +71,7 @@
          });
 
          function startStream() {
+           showWaitingDialog();
            socket.emit('start-stream');
            $('#cameraButton').hide();
          }
