@@ -22,13 +22,18 @@
         });
       };
       function showDetailsDialog(customer) {
+      
         // customer tiene los datos del cliente
         if (customer) {
-            // cuando hay matching
-
+            console.log("AQUI ESTA EL customer: " + customer);
+            //cuando hay matching
+             //var data = JSON.parse(customer);
+             //console.log(data);
+            $("#resultString").text("Welcome " + JSON.stringify(customer.name) + JSON.stringify(customer.surname) + ". Your room number is " + JSON.stringify(customer.roomid) + ". The current temperature is " + JSON.stringify(customer.temperature)+ "C.");
         } else {
           // cuando NO hay matching
-          $("#resultString").text("QUE NO ESTAS, OSTIAS!!!");
+           $("#resultString").text("Your profile was not found in the system. Please go to the front desk.");
+           
         }
         $( "#details-dialog" ).dialog({
           modal: true,
@@ -92,7 +97,7 @@
            $('#photoButton').hide();
          });
          socket.on('match', function(customer) {
-           //hideWaitingDialog();
+           hideWaitingDialog();
            /**
             customer = {
               "surname": "Nogueira",
@@ -115,11 +120,13 @@
          <table align="center">
             <tr>
                <td>
-                  <img src="/wedo_logo.png" height="35"></img>
+                  
+                  <a title="WEDO" href="http://localhost:3000"><img src="/wedo_logo.png" alt="wedo-logo" height="35"  /></a>
                </td>
                <td>&nbsp;&nbsp;&nbsp;</td>
                <td valign="middle">
                   <h1 class="text-center">Hospitality</h1>
+                  
                   <p style="margin: 0 0 0px">&nbsp;
                </td>
             </tr>
@@ -131,7 +138,7 @@
          <center><button type="button" id="cameraButton" class="btn btn-info start" onclick="startStream()">Start Camera</button></center>
       </div>
       <div class="row">
-         <img src="" id="stream">
+          <center><img src="" id="stream"></center>
       </div>
       <br>
       <div class="box">

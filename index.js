@@ -61,10 +61,11 @@ io.on('connection', function(socket) {
         demozone: "BARCELONA"
       };
       var result = restservices.sh_facerecogprocess(inputParams);
-
+      
       Promise.resolve(result)
         .then(function(result) {
           console.log("RESULTADO PARECIDO RAZONABLE: " + result.found);
+          //console.log(result);
           if (result.found) {
             console.log("sending match");
             io.sockets.emit('match', result.customer);
