@@ -16,6 +16,16 @@
       <script src="/js/jquery-1.12.4.js"></script>
       <script src="/js/jquery-ui.js"></script>
       <script>
+      function showAdminDialog() {
+        $( "#admin-dialog" ).dialog({
+          modal: true,
+          buttons: {
+            Close: function() {
+              $( this ).dialog( "close" );
+            }
+          }
+        });
+      }
       function showWaitingDialog() {
         $( "#waiting-dialog" ).dialog({
           modal: true,
@@ -34,7 +44,7 @@
             //cuando hay matching
              //var data = JSON.parse(customer);
              //console.log(data);
-            $("#resultString").text("Welcome " + JSON.stringify(customer.name) + JSON.stringify(customer.surname) + ". Your room number is " + JSON.stringify(customer.roomid) + ". The current temperature is " + JSON.stringify(customer.temperature)+ "C.");
+            $("#resultString").text("Welcome " + customer.name + " " + customer.surname + ". Your room number is " + JSON.stringify(customer.roomid) + ". The current temperature is " + JSON.stringify(customer.temperature)+ "C.");
         } else {
           // cuando NO hay matching
            $("#resultString").text("Your profile was not found in the system. Please go to the front desk.");
@@ -43,7 +53,7 @@
         $( "#details-dialog" ).dialog({
           modal: true,
           buttons: {
-            Cancel: function() {
+            Close: function() {
               $( this ).dialog( "close" );
             }
           }
@@ -90,6 +100,14 @@
            $('#cameraButton').hide();
          }
 
+         function requestReboot() {
+           socket.emit('reboot');
+         }
+
+         function requestPoweroff() {
+           socket.emit('poweroff');
+         }
+
          function startPhoto() {
            showWaitingDialog();
            socket.emit('takephoto');
@@ -125,7 +143,7 @@
          <table align="center">
             <tr style="vertical-align:middle">
                <td>
-                  <a title="WEDO" href="http://localhost:3000"><img src="/wedo_logo.png" alt="wedo-logo" height="35"  /></a>
+                  <a title="WEDO"  onclick="showAdminDialog()"><img src="/wedo_logo.png" alt="wedo-logo" height="35"  /></a>
                </td>
                <td>&nbsp;&nbsp;&nbsp;</td>
                <td>
@@ -150,7 +168,13 @@
             </button>
          </center>
       </div>
-      <div id="waiting-dialog" title="Looking for you in our Systems...">
+      <div style="display:none" id="admin-dialog" title="Administration">
+        <p>
+        <center><button type="button" id="refreshButton" class="btn btn-info start" onclick="location.reload(true)">REFRESH</button></center><p>
+        <center><button type="button" id="rebootButton" class="btn btn-info start" onclick="requestReboot()">REBOOT</button></center><p>
+        <center><button type="button" id="shutdownButton" class="btn btn-info start" onclick="requestPoweroff()">SHUTDOWN</button></center>
+      </div>
+      <div id="waiting-dialog" title="Checking our Systems...">
         <br>
           <div  style="text-align: center">
             <image src="/spin.gif"></image>

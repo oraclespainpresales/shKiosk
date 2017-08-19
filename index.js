@@ -8,7 +8,7 @@ var Promise = require("bluebird");
 var bodyParser = require('body-parser');
 var base64 = require("./impl/base64");
 var restservices = require("./impl/restservices");
-
+var exec = require('child_process').exec;
 var spawn = require('child_process').spawn;
 var proc;
 
@@ -43,6 +43,14 @@ io.on('connection', function(socket) {
 
   socket.on('start-stream', function() {
     startStreaming(io);
+  });
+
+  socket.on('reboot', function() {
+    exec('sudo shutdown -r now', function(error, stdout, stderr){ console.log(stdout) });
+  });
+
+  socket.on('poweroff', function() {
+    exec('sudo shutdown now', function(error, stdout, stderr){ console.log(stdout) });
   });
 
   socket.on('takephoto', function() {
@@ -82,21 +90,6 @@ io.on('connection', function(socket) {
     startStreaming(io);
   });
 });
-
-//Metemos la lógica donde esté activo el socket
-/**
-app.get('/photo', function(req, res) {
-  console.log('Activar Boton de Fotos');
-  io.sockets.emit('buttonPhoto', '');
-  res.send('OK');
-});
-
-app.get('/nophoto', function(req, res) {
-  console.log('Desactivar Boton de Fotos');
-  io.sockets.emit('hidebuttonPhoto', '');
-  res.send('OK');
-});
-**/
 
 app.post('/event', function(req, res) {
   console.log('Presence: ' + req.body.presence);
