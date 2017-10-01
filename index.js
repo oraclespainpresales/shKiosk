@@ -66,7 +66,8 @@ io.on('connection', function(socket) {
       //send image rest invocation
       var inputParams = {
         image: base64str,
-        demozone: "MADRID"
+        demozone: "SANFRANCISCO"
+//        demozone: "MADRID"
       };
       var result = restservices.sh_facerecogprocess(inputParams);
 
