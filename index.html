@@ -92,12 +92,16 @@
          var socket = io();
          socket.on('liveStream', function(url) {
            $('#stream').attr('src', url);
-           $('#cameraButton').hide();
+           //$('#cameraButton').hide();
          });
 
          function startStream() {
            socket.emit('start-stream');
-           $('#cameraButton').hide();
+           //$('#cameraButton').hide();
+         }
+
+         function resetStream() {
+           socket.emit('reset-stream');
          }
 
          function requestReboot() {
@@ -159,7 +163,7 @@
          <center><button type="button" id="cameraButton" class="btn btn-info start" onclick="startStream()">Start Camera</button></center>
       </div>
       -->
-      <div class="row" onclick="startStream()">
+      <div class="row" onclick="resetStream()">
           <center><img src="" id="stream"></center>
       </div>
       <br>

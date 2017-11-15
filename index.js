@@ -45,6 +45,11 @@ io.on('connection', function(socket) {
     startStreaming(io);
   });
 
+  socket.on('reset-stream', function() {
+    stopStreaming();
+    startStreaming(io);
+  });
+
   socket.on('reboot', function() {
     exec('sudo shutdown -r now', function(error, stdout, stderr){ console.log(stdout) });
   });
