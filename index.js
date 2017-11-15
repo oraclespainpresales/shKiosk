@@ -47,7 +47,7 @@ io.on('connection', function(socket) {
 
   socket.on('reset-stream', function() {
     console.log("Reset streaming request...");
-    stopStreaming();
+    killStreaming();
     startStreaming(io);
   });
 
@@ -111,6 +111,14 @@ app.post('/event', function(req, res) {
 http.listen(3000, function() {
   console.log('listening on *:3000');
 });
+
+function killStreaming() {
+  console.log('Killing Streaming...');
+  app.set('watchingFile', false);
+  if (proc) proc.kill();
+  fs.unwatchFile('./stream/image_stream.jpg');
+  console.log('unwatchfile...');
+}
 
 function stopStreaming() {
   console.log('Stop Streaming...');
