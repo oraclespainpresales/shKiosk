@@ -46,6 +46,7 @@ io.on('connection', function(socket) {
   });
 
   socket.on('reset-stream', function() {
+    console.log("Reset streaming request...");
     stopStreaming();
     startStreaming(io);
   });
