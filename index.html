@@ -36,11 +36,12 @@
           }
         });
       };
-      function showDetailsDialog(customer) {
-
+      function showDetailsDialog(message) {
+        $("#resultString").text(message);
+/**
         // customer tiene los datos del cliente
-        if (customer) {
-            console.log("AQUI ESTA EL customer: " + customer);
+        if (message) {
+            console.log("AQUI ESTA EL customer: " + message);
             //cuando hay matching
              //var data = JSON.parse(customer);
              //console.log(data);
@@ -50,6 +51,7 @@
            $("#resultString").text("Your profile was not found in the system. Please go to the front desk.");
 
         }
+**/
         $( "#details-dialog" ).dialog({
           modal: true,
           buttons: {
@@ -123,7 +125,7 @@
          socket.on('hidebuttonPhoto', function(url) {
            $('#photoButton').hide();
          });
-         socket.on('match', function(customer) {
+         socket.on('match', function(message) {
            hideWaitingDialog();
            /**
             customer = {
@@ -134,12 +136,14 @@
             }
            **/
 
-           showDetailsDialog(customer);
+           showDetailsDialog(message);
          });
+         /**
          socket.on('nomatch', function(url) {
            hideWaitingDialog();
            showDetailsDialog();
          });
+         **/
       </script>
    </head>
    <body class="col-lg-12 container" onload="startStream()">

@@ -81,14 +81,20 @@ io.on('connection', function(socket) {
         .then(function(result) {
           console.log("RESULTADO PARECIDO RAZONABLE: " + result.found);
           //console.log(result);
+          if (result.message) {
+            io.sockets.emit('match', result.message);
+          } else {
+            io.sockets.emit('match', "An unexpected error has occurred");
+          }
+/**
           if (result.found) {
             console.log("sending match");
-            io.sockets.emit('match', result.customer);
+            io.sockets.emit('match', result.message);
           } else {
             console.log("sending nomatch");
             io.sockets.emit('nomatch', '');
           }
-
+**/
         });
     } catch (err) {
       console.error(err);
