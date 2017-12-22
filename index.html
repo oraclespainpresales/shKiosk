@@ -92,6 +92,10 @@
       <script src="/socket.io/socket.io.js"></script>
       <script>
          var socket = io();
+         socket.on('demozone', function(demozone) {
+           $('#demozone').text(demozone);
+         });
+
          socket.on('liveStream', function(url) {
            $('#stream').attr('src', url);
            //$('#cameraButton').hide();
@@ -159,7 +163,8 @@
                </td>
             </tr>
          </table>
-         <center style="color:white;"><small>Powered by Oracle</small></center>
+         <center style="color:white;"><small>Powered by Oracle</small></center><p>
+         <center style="color:white;"><small id="demozone">(UNKNOWN)</small></center>
       </div>
       <hr>
       <!--

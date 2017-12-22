@@ -12,6 +12,11 @@ var exec = require('child_process').exec;
 var spawn = require('child_process').spawn;
 var proc;
 
+const DEMOZONEFILE = '/demozone.dat';
+const DEMOZONE = fs.existsSync(DEMOZONEFILE) ? fs.readFileSync(DEMOZONEFILE).toString().replace(/\n$/, '') : 'UNKNOWN';
+
+console.log("Demozone: " + DEMOZONE);
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -29,6 +34,8 @@ io.on('connection', function(socket) {
 
   sockets[socket.id] = socket;
   console.log("Total clients connected : ", Object.keys(sockets).length);
+
+  io.sockets.emit('demozone', "( " + DEMOZONE + " )");
 
   socket.on('disconnect', function() {
     delete sockets[socket.id];
@@ -72,8 +79,7 @@ io.on('connection', function(socket) {
       //send image rest invocation
       var inputParams = {
         image: base64str,
-        demozone: "SANFRANCISCO"
-//        demozone: "MADRID"
+        demozone: DEMOZONE
       };
       var result = restservices.sh_facerecogprocess(inputParams);
 
