@@ -1,7 +1,7 @@
 var fetch = require('node-fetch');
 // function to invoke bpel
 exports.sh_facerecogprocess = function (inputParams) {
-  var url = 'http://new.soa.digitalpracticespain.com' + '/soa-infra/resources/default/SH_FaceRecogProcess/FaceRecogRestService';
+  var url = 'http://soa.wedoteam.io' + '/soa-infra/resources/default/SH_FaceRecogProcess/FaceRecogRestService';
   var message = {
       image: inputParams.image,
       demozone: inputParams.demozone
